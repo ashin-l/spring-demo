@@ -1,0 +1,32 @@
+server:
+  port: 9090
+spring:
+  datasource:
+    url: jdbc:postgresql://192.168.165.2:5432/mydb
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+    # druid 链接池配置
+    druid:
+      initial-size: 1
+      min-idle: 1
+      max-active: 10
+      max-wait: 60000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: true
+      max-open-prepared-statements: 20
+      async-init: true
+mybatis:
+  type-aliases-package: com.example.dockerdemo.model
+  mapper-locations:
+  - classpath:/mapper/*.xml
+  type-handlers:
+    type-handler: com.example.dockerdemo.typehandler.ListIntHandler
+  type-handlers-package: com.example.dockerdemo.typehandler
+  configuration:
+    map-underscore-to-camel-case: true
+    #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
