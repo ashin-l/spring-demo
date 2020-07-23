@@ -36,5 +36,7 @@
   <insert id="save">
     insert into sys_role_permission values(#{roleId}, #{permissionId, typeHandler=org.apache.ibatis.type.ArrayTypeHandler})
   </insert>
+
+  UPDATE cfg_auto_tt SET land_nos = array_remove(land_nos, '00001');
 -->
 </mapper>
