@@ -27,7 +27,7 @@
         <result column="numbers" property="numbers" />
     </resultMap>
     <select id="list" resultType="com.example.dockerdemo.model.ModelA">
-  <resultMap id="id1" type="com.example.rbacdemo.model.SysRolePermission">
+  <resultMap id="id1" type="com.example.springdemo.model.SysRolePermission">
     <result column="permission_id" jdbcType="ARRAY" property="permissionId" typeHandler="org.apache.ibatis.type.ArrayTypeHandler" />
   </resultMap>
   <select id="getByRoleId" resultMap="id1">

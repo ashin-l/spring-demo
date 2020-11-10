@@ -1,0 +1,7 @@
+GET http://127.0.0.1:9090/role/info?roleid=1 HTTP/1.1
+
+###
+POST http://127.0.0.1:9090/role/add HTTP/1.1
+Content-Type: application/json
+
+{"roleId": 2, "permissionId": [1,2,3,4]}
