@@ -1,7 +1,7 @@
 @host = http://127.0.0.1:9090
 
 ###
-POST {{host}}/login HTTP/1.1
+POST {{host}}/auth/login HTTP/1.1
 Content-Type: "application/json"
 
 {"username":"aaa","password":"111"}
@@ -11,3 +11,9 @@ GET {{host}}/home HTTP/1.1
 
 ###
 GET {{host}}/hi HTTP/1.1
+
+###
+GET {{host}}/p1 HTTP/1.1
+
+###
+GET {{host}}/p2 HTTP/1.1
