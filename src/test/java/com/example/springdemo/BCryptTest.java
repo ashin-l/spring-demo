@@ -12,7 +12,7 @@ class BCryptTest {
 
     @Test
     void test() {
-        var p = encoder.encode("111");
+        var p = encoder.encode("111111");
         System.out.println(p);
     }
 

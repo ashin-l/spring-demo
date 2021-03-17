@@ -3,7 +3,7 @@ package com.example.springdemo.security.filter;
 import com.example.springdemo.security.constants.SecurityConstants;
 import com.example.springdemo.security.entity.JwtUser;
 import com.example.springdemo.security.entity.LoginUser;
-import com.example.springdemo.security.utils.JwtTokenUtils;
+import com.example.springdemo.security.utils.JwtUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,8 +20,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * @author shuang.kou
- * 如果用户名和密码正确，那么过滤器将创建一个JWT Token 并在HTTP Response 的header中返回它，格式：token: "Bearer +具体token值"
+ * @author shuang.kou 如果用户名和密码正确，那么过滤器将创建一个JWT Token 并在HTTP Response
+ *         的header中返回它，格式：token: "Bearer +具体token值"
  */
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
@@ -35,8 +35,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     }
 
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest request,
-                                                HttpServletResponse response) throws AuthenticationException {
+    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
+            throws AuthenticationException {
 
         ObjectMapper objectMapper = new ObjectMapper();
         try {
@@ -58,24 +58,21 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
      * 如果验证成功，就生成token并返回
      */
     @Override
-    protected void successfulAuthentication(HttpServletRequest request,
-                                            HttpServletResponse response,
-                                            FilterChain chain,
-                                            Authentication authentication) {
+    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
+            Authentication authentication) {
 
         JwtUser jwtUser = (JwtUser) authentication.getPrincipal();
-        List<String> roles = jwtUser.getAuthorities()
-                .stream()
-                .map(GrantedAuthority::getAuthority)
+        List<String> roles = jwtUser.getAuthorities().stream().map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
         // 创建 Token
-        String token = JwtTokenUtils.createToken(jwtUser.getUsername(), roles, rememberMe.get());
+        String token = JwtUtils.createToken(jwtUser.getUsername(), roles, rememberMe.get());
         // Http Response Header 中返回 Token
         response.setHeader(SecurityConstants.TOKEN_HEADER, token);
     }
 
     @Override
-    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException authenticationException) throws IOException {
+    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
+            AuthenticationException authenticationException) throws IOException {
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, authenticationException.getMessage());
     }
 }

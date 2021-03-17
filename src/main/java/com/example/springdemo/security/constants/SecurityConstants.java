@@ -9,6 +9,8 @@ public class SecurityConstants {
      * 登录的地址
      */
     public static final String AUTH_LOGIN_URL = "/auth/login";
+    // 签发者
+    public static final String ISSUER = "thfw";
 
     /**
      * 角色的key

@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.example.springdemo.security.constants.SecurityConstants;
-import com.example.springdemo.security.utils.JwtTokenUtils;
+import com.example.springdemo.security.utils.JwtUtils;
 
 import java.io.IOException;
 import java.util.List;
@@ -40,9 +40,8 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    FilterChain chain) throws IOException, ServletException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
+            throws IOException, ServletException {
 
         String authorization = request.getHeader(SecurityConstants.TOKEN_HEADER);
         // 如果请求头中没有token信息则直接放行了
@@ -61,14 +60,15 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
     private UsernamePasswordAuthenticationToken getAuthentication(String authorization) {
         String token = authorization.replace(SecurityConstants.TOKEN_PREFIX, "");
         try {
-            String username = JwtTokenUtils.getUsernameByToken(token);
+            String username = JwtUtils.getUsernameByToken(token);
             logger.info("checking username:" + username);
             // 通过 token 获取用户具有的角色
-            List<SimpleGrantedAuthority> userRolesByToken = JwtTokenUtils.getUserRolesByToken(token);
+            List<SimpleGrantedAuthority> userRolesByToken = JwtUtils.getUserRolesByToken(token);
             if (!StringUtils.isEmpty(username)) {
                 return new UsernamePasswordAuthenticationToken(username, null, userRolesByToken);
             }
-        } catch (SignatureException | ExpiredJwtException | MalformedJwtException | IllegalArgumentException exception) {
+        } catch (SignatureException | ExpiredJwtException | MalformedJwtException
+                | IllegalArgumentException exception) {
             logger.warning("Request to parse JWT with invalid signature . Detail : " + exception.getMessage());
         }
         return null;
