@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.example.springdemo.security.constants.SecurityConstants;
-import com.example.springdemo.security.utils.JwtUtils;
+import com.example.springdemo.security.utils.JwtUtil;
 
 import java.io.IOException;
 import java.util.List;
@@ -60,10 +60,10 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
     private UsernamePasswordAuthenticationToken getAuthentication(String authorization) {
         String token = authorization.replace(SecurityConstants.TOKEN_PREFIX, "");
         try {
-            String username = JwtUtils.getUsernameByToken(token);
+            String username = JwtUtil.getUsernameByToken(token);
             logger.info("checking username:" + username);
             // 通过 token 获取用户具有的角色
-            List<SimpleGrantedAuthority> userRolesByToken = JwtUtils.getUserRolesByToken(token);
+            List<SimpleGrantedAuthority> userRolesByToken = JwtUtil.getUserRolesByToken(token);
             if (!StringUtils.isEmpty(username)) {
                 return new UsernamePasswordAuthenticationToken(username, null, userRolesByToken);
             }

@@ -3,7 +3,7 @@ package com.example.springdemo.security.filter;
 import com.example.springdemo.security.constants.SecurityConstants;
 import com.example.springdemo.security.entity.JwtUser;
 import com.example.springdemo.security.entity.LoginUser;
-import com.example.springdemo.security.utils.JwtUtils;
+import com.example.springdemo.security.utils.JwtUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -65,7 +65,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         List<String> roles = jwtUser.getAuthorities().stream().map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
         // 创建 Token
-        String token = JwtUtils.createToken(jwtUser.getUsername(), roles, rememberMe.get());
+        String token = JwtUtil.createToken(jwtUser.getUsername(), roles, rememberMe.get());
         // Http Response Header 中返回 Token
         response.setHeader(SecurityConstants.TOKEN_HEADER, token);
     }
