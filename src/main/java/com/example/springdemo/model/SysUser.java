@@ -11,14 +11,15 @@ import lombok.Data;
 @Data
 public class SysUser {
 
-  private Integer id;
+  private Integer userId;
   private String username;
   private String password;
   private String roles;
 
-  public List<SimpleGrantedAuthority> getRoles() {
-    List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-    Arrays.stream(roles.split(",")).forEach(role -> authorities.add(new SimpleGrantedAuthority("ROLE_" + role)));
-    return authorities;
-  }
+  // public List<SimpleGrantedAuthority> getRoles() {
+  // List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+  // Arrays.stream(roles.split(",")).forEach(role -> authorities.add(new
+  // SimpleGrantedAuthority("ROLE_" + role)));
+  // return authorities;
+  // }
 }

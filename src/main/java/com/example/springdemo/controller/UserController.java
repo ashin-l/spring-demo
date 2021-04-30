@@ -64,14 +64,14 @@ public class UserController {
     SysUser user = new SysUser();
     user.setUsername((String) params.get("username"));
     user.setPassword(new BCryptPasswordEncoder().encode((String) params.get("password")));
-    //user.setPassword(MD5.crypt((String) params.get("password")));
+    // user.setPassword(MD5.crypt((String) params.get("password")));
     userService.save(user);
     System.out.println(params);
     if (params.get("roleid") != null) {
       SysRoleUser roleuser = new SysRoleUser();
       roleuser.setRoleId(Long.valueOf(String.valueOf(params.get("roleid"))));
-      System.out.println(user.getId());
-      roleuser.setUserId(user.getId());
+      System.out.println(user.getUserId());
+      roleuser.setUserId(user.getUserId());
       System.out.println(roleuser);
       roleuserService.addRoleUser(roleuser);
     }
@@ -83,7 +83,7 @@ public class UserController {
   public Result updateUser(@RequestBody UserInfo userInfo) {
     System.out.println(userInfo);
     SysUser user = new SysUser();
-    user.setId(userInfo.getId());
+    user.setUserId(userInfo.getId());
     user.setUsername(userInfo.getUsername());
     userService.update(user);
     return Result.ok();

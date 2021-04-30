@@ -24,7 +24,7 @@ public class JwtUser implements UserDetails {
      * 通过 user 对象创建jwtUser
      */
     public JwtUser(SysUser user) {
-        id = user.getId();
+        id = user.getUserId();
         username = user.getUsername();
         password = user.getPassword();
         authorities = user.getRoles();
@@ -67,12 +67,8 @@ public class JwtUser implements UserDetails {
 
     @Override
     public String toString() {
-        return "JwtUser{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", authorities=" + authorities +
-                '}';
+        return "JwtUser{" + "id=" + id + ", username='" + username + '\'' + ", password='" + password + '\''
+                + ", authorities=" + authorities + '}';
     }
 
 }

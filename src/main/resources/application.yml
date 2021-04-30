@@ -1,8 +1,10 @@
 server:
   port: 9090
   servlet:
-    context-path: /demo
+    context-path: /
 spring:
+  profiles:
+    active: dev
   datasource:
     url: jdbc:postgresql://192.168.165.2:5432/mydb
     username: postgres
@@ -22,16 +24,41 @@ spring:
       pool-prepared-statements: true
       max-open-prepared-statements: 20
       async-init: true
+  quartz:
+    #相关属性配置
+    properties:
+      org:
+        quartz:
+          # scheduler:
+            # instanceName: clusteredScheduler
+            # instanceName: DOLPHIN
+            # instanceId: AUTO
+          jobStore:
+            # class: org.quartz.impl.jdbcjobstore.JobStoreTX
+            class: org.quartz.simpl.RAMJobStore
+            # driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+            # tablePrefix: QRTZ_
+            # isClustered: true
+            # clusterCheckinInterval: 10000
+            # useProperties: false
+          threadPool:
+            class: org.quartz.simpl.SimpleThreadPool
+            threadCount: 10
+            threadPriority: 5
+          #   threadsInheritContextClassLoaderOfInitializingThread: always
+    #数据库方式
+    # job-store-type: jdbc
+    #初始化表结构
+    # jdbc:
+    #   initialize-schema: 
 mybatis:
   type-aliases-package: com.example.dockerdemo.model
   mapper-locations:
-  - classpath:/mapper/*.xml
-  type-handlers:
-    type-handler: com.example.dockerdemo.typehandler.ListIntHandler
-  type-handlers-package: com.example.dockerdemo.typehandler
+    - classpath:/mapper/*.xml
   configuration:
     map-underscore-to-camel-case: true
-    #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    # log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 netty:
-  port: 20001
+  port: 20005

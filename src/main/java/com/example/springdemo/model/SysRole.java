@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class SysRole {
 
-  private Long id;
+  private Long RoleId;
   private String name;
   private String description;
   private Integer createTime;

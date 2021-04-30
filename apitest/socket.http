@@ -1,0 +1,4 @@
+@host = http://127.0.0.1:9091/demo/socket
+
+###
+GET {{host}}/msg?uuid=lamp001&msg=5AA506FFFFFFFF00504C HTTP/1.1

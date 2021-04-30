@@ -62,12 +62,13 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
         // writeAndFlush在这里没生效，没找到原因
     }
 
-    public static void sendMessage(byte[] msg) {
+    public static void sendMessage(String msg) {
         ChannelHandlerContext ctx = ctxMap.get("lamp001");
         if (ctx != null) {
             ByteBuf buf = Unpooled.buffer();
             // buf.writeBytes(HexStringUtil.getHexBytes(ON_CODE));
-            buf.writeBytes(HexStringUtil.getHexBytes(OFF_CODE));
+            // buf.writeBytes(HexStringUtil.getHexBytes(OFF_CODE));
+            buf.writeBytes(HexStringUtil.hexToBytes(msg));
             // ctx.write(buf);
             // ctx.flush();
             ctx.writeAndFlush(buf).addListener(new ChannelFutureListener() { // 获取当前的handle

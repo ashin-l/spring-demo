@@ -13,7 +13,9 @@ public interface UserDao {
 
   Long getTotal();
 
-  //@Select("select * from sys_user t order by t.id limit #{limit} offset #{offset}")
+  // @Select("select * from sys_user t order by t.id limit #{limit} offset
+  // #{offset}")
+  @Select("select * from sys_user t order by t.user_id")
   List<SysUser> getUserList();
 
   // ${username} 使用字符串拼接， #{username} 使用占位符
@@ -21,8 +23,9 @@ public interface UserDao {
   @Select("select * from sys_user t where t.username = #{username}")
   SysUser getUser(String username);
 
-  //@Options(useGeneratedKeys = true, keyProperty = "id")
-  //@Insert("Insert into sys_user(username,password) values(#{username},#{password})")
+  // @Options(useGeneratedKeys = true, keyProperty = "id")
+  // @Insert("Insert into sys_user(username,password)
+  // values(#{username},#{password})")
   int save(SysUser user);
 
   int updateUser(SysUser user);

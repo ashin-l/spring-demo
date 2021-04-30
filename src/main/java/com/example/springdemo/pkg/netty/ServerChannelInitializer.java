@@ -8,12 +8,12 @@ import io.netty.util.CharsetUtil;
 
 public class ServerChannelInitializer extends ChannelInitializer<SocketChannel> {
     @Override
-    protected void initChannel(SocketChannel socketChannel) throws Exception {
+    protected void initChannel(SocketChannel ch) throws Exception {
         // 添加编解码
-        // socketChannel.pipeline().addLast("decoder", new
+        // ch.pipeline().addLast("decoder", new
         // StringDecoder(CharsetUtil.US_ASCII));
-        // socketChannel.pipeline().addLast("encoder", new
+        // ch.pipeline().addLast("encoder", new
         // StringEncoder(CharsetUtil.US_ASCII));
-        socketChannel.pipeline().addLast(new NettyServerHandler());
+        ch.pipeline().addLast(new NettyServerHandler());
     }
 }
